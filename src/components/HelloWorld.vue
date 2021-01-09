@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <p>テスト</p>
+    <p>テスト {{vueAppTitle}}</p>
     <div>
       <input type="number" name="currentPrice" id="price" v-model.number="inputPrice">
       <input type="number" name="unit" id="unit" v-model.number="unit">
@@ -42,7 +42,8 @@ export default {
   data: function(){
     return{
       inputPrice: 4126000,
-      unit: 0.01
+      unit: 0.01,
+      vueAppTitle: process.env.VUE_APP_TITLE
     }
   },
   computed:{
@@ -69,7 +70,7 @@ export default {
     
   },
   created(){
-    const url = '/v1/getboard'
+    const url = process.env.VUE_APP_TITLE === 'App(development)' ? '/v1/getboard':'/search'
     axios.get(url).then(res =>{
         this.inputPrice = res.data.mid_price
       }).catch(err=>console.log(err))
@@ -79,7 +80,7 @@ export default {
       return Math.floor((Number(a) - this.inputPrice)*this.unit)
     },
     getPrice(){
-      const url = '/v1/getboard'
+      const url = process.env.VUE_APP_TITLE === 'App(development)' ? '/v1/getboard':'/search'
       axios.get(url).then(res =>{
         this.inputPrice = res.data.mid_price
       }).catch(err=>console.log(err))

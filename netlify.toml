@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/search"
+  to = "https://api.bitflyer.com/v1/getboard"
+  status = 200
+  force = true
